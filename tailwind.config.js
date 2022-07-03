@@ -9,7 +9,8 @@ module.exports = {
       fontFamily: {
         nunitoBold: ["Nunito Bold", "sans-serif"],
         nunitoExtraBold: ["Nunito Extra Bold", "sans-serif"],
-        openSans: ["Open Sans", "sans-serif"]
+        openSans: ["Open Sans", "sans-serif"],
+        openSansSemiBold: ["Open Sans Semi Bold", "sans-serif"]
       }
     },
   },

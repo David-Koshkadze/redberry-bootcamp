@@ -26,7 +26,7 @@ const Home = () => {
 
         <Link
           to="/register"
-          className="mt-20 px-4 py-2 rounded-lg bg-[#212529] text-white flex gap-2 w-fit hover:outline outline-4 outline-purple-400"
+          className="mt-20 px-4 py-2 rounded-lg bg-[#212529] text-white flex gap-2 w-fit hover:outline outline-purple-400"
         >
           <p>Get Started</p>
           <img src={next_icon} alt="next-btn" className="w-[24px] h-[24px]" />

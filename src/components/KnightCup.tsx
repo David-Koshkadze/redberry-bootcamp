@@ -5,7 +5,7 @@ const KnightCup = () => {
     <div className="h-[84px] w-full bg-[#7025FB] flex items-center pl-10">
       <div className="text-white text-lg flex gap-2">
           <img src={chess_icon} alt="chess_icon" />
-          <p>Redberry Knight Cup</p>
+          <p className="font-nunitoExtraBold text-xl">Redberry Knight Cup</p>
       </div>
     </div>
   );
