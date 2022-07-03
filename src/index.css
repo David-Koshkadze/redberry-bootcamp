@@ -13,7 +13,15 @@
 }
 
 @font-face {
-  font-family: 'Open Sans';
+  font-family: 'Open Sans Semi Bold';
   src: url('../src/assets/fonts/OpenSans/OpenSans-SemiBold.ttf');
 }
 
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../src/assets/fonts/OpenSans/OpenSans-Regular.ttf');
+}
+
+input::placeholder {
+  color: #212529;
+}
