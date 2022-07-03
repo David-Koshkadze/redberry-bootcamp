@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Nunito Bold';
+  src: url('../src/assets/fonts/Nunito/Nunito-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Nunito Extra Bold';
+  src: url('../src/assets/fonts/Nunito/Nunito-ExtraBold.ttf');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../src/assets/fonts/OpenSans/OpenSans-SemiBold.ttf');
+}
+

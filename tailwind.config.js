@@ -5,7 +5,13 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        nunitoBold: ["Nunito Bold", "sans-serif"],
+        nunitoExtraBold: ["Nunito Extra Bold", "sans-serif"],
+        openSans: ["Open Sans", "sans-serif"]
+      }
+    },
   },
   plugins: [],
 }
