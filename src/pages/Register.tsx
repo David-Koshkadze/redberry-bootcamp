@@ -4,21 +4,17 @@ import Pager from "../components/Pager";
 import { Link } from "react-router-dom";
 import next_icon from "../assets/icons/next_icon.svg";
 import Input from "../components/Input";
-import { Formik, Form, FormikProps } from "formik";
+import { Formik, Form, FormikProps, Field } from "formik";
 import * as Yup from "yup";
 
 interface Values {
-  name: string,
-  email: string,
-  phone: string,
-  birthdate: string,
+  name: string;
+  email: string;
 }
 
 const SignUpSchema = Yup.object().shape({
   name: Yup.string().min(3).max(20).required(),
-  email: Yup.string().email().required(),
-  phone: Yup.string().min(10).max(10).required(),
-  birthdate: Yup.string().required(),
+  email: Yup.string().email("Should be email").required(),
 });
 
 const Register = () => {
@@ -62,35 +58,44 @@ const Register = () => {
           <div className="mt-20 h-64 flex flex-col gap-4 font-openSans">
             <Formik
               initialValues={{
-                name: "",
+                name: "adfa",
                 email: "",
-                phone: "",
-                birthdate: "",
               }}
+              onSubmit={(values) => alert(JSON.stringify(values))}
               validationSchema={SignUpSchema}
-              onSubmit={(values) => console.log(values)}
             >
-              {(props: FormikProps<Values> ) => (
-                <Form>
-                  <Input type="text" name="name" label="Name" required={true} />
-                  <Input
-                    type="email"
+              {(props: FormikProps<Values>) => (
+                <form onSubmit={props.handleSubmit}>
+                  <Field type="text" name="name" />
+
+                  {/* <input
+                    type="text"
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.email}
                     name="email"
+                  /> */}
+
+                  <button type="submit">Submit</button>
+
+                  {/*<Input
+                    name="email"
+                    type="email"
                     label="Email address"
                     required={true}
                   />
                   <Input
-                    type="text"
                     name="phone"
+                    type="text"
                     label="Phone number"
                     required={true}
                   />
                   <Input
-                    type="text"
                     name="birthdate"
+                    type="text"
                     label="Date of birth"
                     required={true}
-                  />
+                  /> */}
 
                   <div className="flex justify-between mt-16">
                     <Link
@@ -112,7 +117,7 @@ const Register = () => {
                       />
                     </button>
                   </div>
-                </Form>
+                </form>
               )}
             </Formik>
           </div>
