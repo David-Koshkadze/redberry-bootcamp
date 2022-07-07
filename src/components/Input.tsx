@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useField } from "formik";
 import green_allow_icon from "../assets/icons/green_allow_icon.svg";
 
-const Input = (props: any) => {
+const Input = ({ label, ...props }: any) => {
   const [isText, setIsText] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
@@ -12,10 +12,10 @@ const Input = (props: any) => {
   useEffect(() => console.log("Rendered"), []);
 
   return (
-    <div className="relative">
+    <div className="relative mb-4 ">
       <input
+        {...field}
         {...props}
-        
         className="w-full px-4 py-2 text-black outline-none border-b-[1px] hover:bg-gray-50 focus:bg-[#E9ECEF] rounded-[4px] shadow-sm"
       />
 

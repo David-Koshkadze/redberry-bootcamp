@@ -25,16 +25,16 @@ const Register = () => {
         <img
           src={register_page}
           alt="register_page"
-          className="object-cover w-full h-screen"
+          className="object-cover h-auto w-full"
         />
-        <div className="absolute top-64 left-28 text-xl [&>*]:mb-3">
-          <p className="uppercase text-[#212529] font-nunitoExtraBold">
+        <div className="absolute top-64 left-28 text-[26px] [&>*]:mb-2 font-nunitoExtraBoldItalic">
+          <p className="uppercase text-[#212529]">
             “When you see a good move,
           </p>
-          <p className="uppercase text-[#212529] font-nunitoExtraBold">
+          <p className="uppercase text-[#212529]">
             look for a better one.”
           </p>
-          <p className="uppercase text-[#E5E6E8]">-Emanuel Lasker</p>
+          <p className="uppercase text-[#E5E6E8] font-nunitoItalic">-Emanuel Lasker</p>
         </div>
       </div>
       <div className="w-1/2">
@@ -66,7 +66,6 @@ const Register = () => {
             >
               {(props: FormikProps<Values>) => (
                 <form onSubmit={props.handleSubmit}>
-                  <Field type="text" name="name" />
 
                   {/* <input
                     type="text"
@@ -76,26 +75,14 @@ const Register = () => {
                     name="email"
                   /> */}
 
-                  <button type="submit">Submit</button>
+                  <Input 
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.name}
+                    label="name" 
+                    name="name"
+                  />
 
-                  {/*<Input
-                    name="email"
-                    type="email"
-                    label="Email address"
-                    required={true}
-                  />
-                  <Input
-                    name="phone"
-                    type="text"
-                    label="Phone number"
-                    required={true}
-                  />
-                  <Input
-                    name="birthdate"
-                    type="text"
-                    label="Date of birth"
-                    required={true}
-                  /> */}
 
                   <div className="flex justify-between mt-16">
                     <Link

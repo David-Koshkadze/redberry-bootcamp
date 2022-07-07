@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @font-face {
+  font-family: 'Nunito Italic';
+  src: url("../src/assets/fonts/Nunito/Nunito-Italic.ttf")
+
+}
+
+@font-face {
   font-family: 'Nunito Bold';
   src: url('../src/assets/fonts/Nunito/Nunito-Bold.ttf');
 }
@@ -10,6 +16,11 @@
 @font-face {
   font-family: 'Nunito Extra Bold';
   src: url('../src/assets/fonts/Nunito/Nunito-ExtraBold.ttf');
+}
+
+@font-face {
+  font-family: 'Nunito Extra Bold Italic';
+  src: url('../src/assets/fonts/Nunito/Nunito-ExtraBoldItalic.ttf')
 }
 
 @font-face {
