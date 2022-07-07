@@ -26,7 +26,7 @@ const Home = () => {
 
         <Link
           to="/register"
-          className="mt-20 px-[24px] py-[13px] rounded-lg bg-[#212529] text-white flex items-center gap-2 w-fit hover:outline outline-purple-400"
+          className="mt-20 px-[24px] py-[13px] rounded-lg bg-[#212529] text-white flex items-center gap-3 w-fit hover:outline outline-purple-400"
         >
           <p className="text-[20px]">Get Started</p>
           <img src={next_icon} alt="next-btn" className="w-[24px] h-[24px]" />
