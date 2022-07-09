@@ -10,14 +10,20 @@ import * as Yup from "yup";
 interface Values {
   name: string;
   email: string;
+  phone: string;
   date: string;
 }
 
 const SignUpSchema = Yup.object().shape({
   name: Yup.string().min(3).max(20).required(),
   email: Yup.string().email("Should be email").required(),
-  date: Yup.string().required()
+  phone: Yup.string().min(3).required(),
+  date: Yup.string().required(),
 });
+
+function addToLocalStorage(name: string, value: string) {
+  localStorage.setItem(name, value);
+}
 
 const Register = () => {
   return (
@@ -60,15 +66,19 @@ const Register = () => {
               initialValues={{
                 name: "",
                 email: "",
-                date: ""
+                phone: "",
+                date: "",
               }}
-              onSubmit={(values) => alert(JSON.stringify(values))}
+              onSubmit={(values) => {
+                alert(JSON.stringify(values));
+              }}
               validationSchema={SignUpSchema}
             >
               {(props: FormikProps<Values>) => (
                 <Form>
                   <Input label="Name" name="name" type="text" />
                   <Input label="Email" name="email" type="email" />
+                  <Input label="Phone" name="phone" type="text" />
                   <Input label="Date of birth" name="date" type="text" />
 
                   <pre>{JSON.stringify(props.values)}</pre>
