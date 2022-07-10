@@ -15,13 +15,8 @@ import {
   FieldArray,
 } from "formik";
 import * as Yup from "yup";
+import Modal from "../components/Modal";
 
-interface Values {
-  name: string;
-  email: string;
-  phone: string;
-  date: string;
-}
 
 interface FormikStepProps
   extends Pick<FormikConfig<FormikValues>, "children" | "validationSchema"> {}
@@ -39,8 +34,6 @@ const FormikStepper = ({ children, ...props }: FormikConfig<FormikValues>) => {
   const currentChild = childrenArray[
     step
   ] as React.ReactElement<FormikStepProps>;
-
-  console.log("children", currentChild);
 
   return (
     <Formik
@@ -79,59 +72,63 @@ const FormikStepper = ({ children, ...props }: FormikConfig<FormikValues>) => {
           <div className="w-1/2">
             <div className="w-full h-[84px] border border-b flex items-center px-10">
               <p className="font-openSansSemiBold text-base">
-                Start Creating Your Account
+                {step === 0
+                  ? "Start Creating Your Account"
+                  : "First step is done, continue to finish onboarding"}
               </p>
             </div>
 
             <div className="pl-10 pr-40 mt-12">
-              <Pager />
-              <div className="mt-20 border">
+              <Pager step={step} />
+              <div className="mt-20">
                 <h1 className="font-openSansSemiBold text-[32px]">
-                  Personal Information
+                  {step === 0 ? "Personal information" : "Chess experience"}
                 </h1>
                 <span className="font-openSansSemiBold text-[14px] text-[#95939A]">
                   This is Basic Information Fields
                 </span>
               </div>
-            </div>
+              
+              {/* <Modal /> */}
 
-            <div className="mt-20 h-64 flex flex-col gap-4 font-openSans">
-              {currentChild}
+              <div className="mt-20 h-64 flex flex-col gap-4 font-openSans">
+                {currentChild}
 
-              <div className="flex justify-between mt-16 text-[20px]">
-                {step === 0 ? (
-                  <Link
-                    to="/"
-                    className="px-[24px] py-[13px] border border-[#212529] rounded-lg bg-white hover:bg-gray-300"
-                  >
-                    Back
-                  </Link>
-                ) : (
-                  <button
-                    onClick={() => setStep((s) => s - 1)}
-                    className="px-[24px] py-[13px] border border-[#212529] rounded-lg bg-white hover:bg-gray-300"
-                  >
-                    Back
-                  </button>
-                )}
-
-                <button
-                  type="submit"
-                  className="px-[24px] py-[13px] rounded-lg bg-[#212529] text-white flex items-center gap-3 w-fit hover:outline outline-purple-400"
-                >
-                  {step === 1 ? (
-                    <p>Done</p>
+                <div className="flex justify-between mt-16 text-[20px]">
+                  {step === 0 ? (
+                    <Link
+                      to="/"
+                      className="px-[24px] py-[13px] border border-[#212529] rounded-lg bg-white hover:bg-gray-300"
+                    >
+                      Back
+                    </Link>
                   ) : (
-                    <>
-                      <p>Next</p>
-                      <img
-                        src={next_icon}
-                        alt="next-btn"
-                        className="w-[24px] h-[24px]"
-                      />
-                    </>
+                    <button
+                      onClick={() => setStep((s) => s - 1)}
+                      className="px-[24px] py-[13px] border border-[#212529] rounded-lg bg-white hover:bg-gray-300"
+                    >
+                      Back
+                    </button>
                   )}
-                </button>
+
+                  <button
+                    type="submit"
+                    className="px-[24px] py-[13px] rounded-lg bg-[#212529] text-white flex items-center gap-3 w-fit hover:outline outline-purple-400"
+                  >
+                    {step === 1 ? (
+                      <p>Done</p>
+                    ) : (
+                      <>
+                        <p>Next</p>
+                        <img
+                          src={next_icon}
+                          alt="next-btn"
+                          className="w-[24px] h-[24px]"
+                        />
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
