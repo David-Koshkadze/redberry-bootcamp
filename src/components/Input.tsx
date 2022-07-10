@@ -29,7 +29,7 @@ const Input: React.FC<InputProps> = ({ label, ...props }: any) => {
         </label>
       )}
 
-      {(!meta.error && meta.touched) && (
+      {!meta.error && meta.touched && (
         <img src={green_allow_icon} className="absolute top-[10px] right-4" />
       )}
     </div>

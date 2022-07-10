@@ -1,10 +1,11 @@
+import React, { useState } from "react";
 import KnightCup from "../components/KnightCup";
 import register_page from "../assets/images/register_page.png";
 import Pager from "../components/Pager";
 import { Link } from "react-router-dom";
 import next_icon from "../assets/icons/next_icon.svg";
 import Input from "../components/Input";
-import { Formik, Form, FormikProps, Field } from "formik";
+import { Formik, Form, FormikProps, FormikConfig, FormikValues } from "formik";
 import * as Yup from "yup";
 
 interface Values {
@@ -21,9 +22,72 @@ const SignUpSchema = Yup.object().shape({
   date: Yup.string().required(),
 });
 
-function addToLocalStorage(name: string, value: string) {
-  localStorage.setItem(name, value);
-}
+const FormikStepper = ({ children, ...props }: FormikConfig<FormikValues>) => {
+  const childrenArray = React.Children.toArray(children);
+  const [step, setStep] = useState(0);
+  const currentChild = childrenArray[step];
+
+  return (
+    <Formik
+      {...props}
+      validationSchema={currentChild.props.validationSchema}
+      onSubmit={async (values, helpers) => {
+        if (step === 1) {
+          await props.onSubmit(values, helpers);
+        } else {
+          setStep((s) => s + 1);
+        }
+      }}
+    >
+      <Form>
+        {currentChild}
+
+        <div className="flex justify-between mt-16 text-[20px]">
+          {step === 0 ? (
+            <Link
+              to="/"
+              className="px-[24px] py-[13px] border border-[#212529] rounded-lg bg-white hover:bg-gray-300"
+            >
+              Back
+            </Link>
+          ) : (
+            <button
+              onClick={() => setStep((s) => s - 1)}
+              className="px-[24px] py-[13px] border border-[#212529] rounded-lg bg-white hover:bg-gray-300"
+            >
+              Back
+            </button>
+          )}
+
+          <button
+            type="submit"
+            className="px-[24px] py-[13px] rounded-lg bg-[#212529] text-white flex items-center gap-3 w-fit hover:outline outline-purple-400"
+          >
+            {step === 1 ? (
+              <p>Done</p>
+            ) : (
+              <>
+                <p>Next</p>
+                <img
+                  src={next_icon}
+                  alt="next-btn"
+                  className="w-[24px] h-[24px]"
+                />
+              </>
+            )}
+          </button>
+        </div>
+      </Form>
+    </Formik>
+  );
+};
+
+interface FormikStepProps
+  extends Pick<FormikConfig<FormikValues>, "children" | "validationSchema"> {}
+
+const FormikStep = ({ children }: FormikConfig<FormikValues>) => {
+  return <>{children}</>;
+};
 
 const Register = () => {
   return (
@@ -62,50 +126,34 @@ const Register = () => {
           </div>
 
           <div className="mt-20 h-64 flex flex-col gap-4 font-openSans">
-            <Formik
+            <FormikStepper
               initialValues={{
                 name: "",
                 email: "",
                 phone: "",
                 date: "",
               }}
-              onSubmit={(values) => {
-                alert(JSON.stringify(values));
-              }}
-              validationSchema={SignUpSchema}
             >
-              {(props: FormikProps<Values>) => (
-                <Form>
-                  <Input label="Name" name="name" type="text" />
-                  <Input label="Email" name="email" type="email" />
-                  <Input label="Phone" name="phone" type="text" />
-                  <Input label="Date of birth" name="date" type="text" />
+              <FormikStep
+                validationSchema={Yup.object().shape({
+                  name: Yup.string().min(3).max(20).required(),
+                  email: Yup.string().email("Should be email").required(),
+                })}
+              >
+                <Input label="Name" name="name" type="text" />
+                <Input label="Email" name="email" type="email" />
+              </FormikStep>
 
-                  <pre>{JSON.stringify(props.values)}</pre>
-
-                  <div className="flex justify-between mt-16 text-[20px]">
-                    <Link
-                      to="/"
-                      className="px-[24px] py-[13px] border border-[#212529] rounded-lg bg-white hover:bg-gray-300"
-                    >
-                      Back
-                    </Link>
-
-                    <button
-                      type="submit"
-                      className="px-[24px] py-[13px] rounded-lg bg-[#212529] text-white flex items-center gap-3 w-fit hover:outline outline-purple-400"
-                    >
-                      <p>Next</p>
-                      <img
-                        src={next_icon}
-                        alt="next-btn"
-                        className="w-[24px] h-[24px]"
-                      />
-                    </button>
-                  </div>
-                </Form>
-              )}
-            </Formik>
+              <FormikStep
+                validationSchema={Yup.object().shape({
+                  phone: Yup.string().min(3).required(),
+                  date: Yup.string().required(),
+                })}
+              >
+                <Input label="Phone" name="phone" type="text" />
+                <Input label="Date of birth" name="date" type="text" />
+              </FormikStep>
+            </FormikStepper>
           </div>
         </div>
       </div>
