@@ -5,8 +5,8 @@ import green_allow_icon from "../assets/icons/green_allow_icon.svg";
 type InputProps = { label: string } & FieldAttributes<{}>;
 
 const Input: React.FC<InputProps> = ({ label, ...props }: any) => {
-  const [isValid, setIsValid] = useState(false);
-  const [name, setName] = useState("");
+  // const [isValid, setIsValid] = useState(false);
+  // const [name, setName] = useState("");
 
   const [field, meta] = useField(props);
 
