@@ -5,7 +5,14 @@ import Pager from "../components/Pager";
 import { Link } from "react-router-dom";
 import next_icon from "../assets/icons/next_icon.svg";
 import Input from "../components/Input";
-import { Formik, Form, FormikProps, FormikConfig, FormikValues } from "formik";
+import {
+  Formik,
+  Form,
+  Field,
+  FormikProps,
+  FormikConfig,
+  FormikValues,
+} from "formik";
 import * as Yup from "yup";
 
 interface Values {
@@ -14,6 +21,9 @@ interface Values {
   phone: string;
   date: string;
 }
+
+interface FormikStepProps
+  extends Pick<FormikConfig<FormikValues>, "children" | "validationSchema"> {}
 
 const SignUpSchema = Yup.object().shape({
   name: Yup.string().min(3).max(20).required(),
@@ -25,7 +35,11 @@ const SignUpSchema = Yup.object().shape({
 const FormikStepper = ({ children, ...props }: FormikConfig<FormikValues>) => {
   const childrenArray = React.Children.toArray(children);
   const [step, setStep] = useState(0);
-  const currentChild = childrenArray[step];
+  const currentChild = childrenArray[
+    step
+  ] as React.ElementType<FormikStepProps>;
+
+  console.log("children", currentChild);
 
   return (
     <Formik
@@ -82,9 +96,6 @@ const FormikStepper = ({ children, ...props }: FormikConfig<FormikValues>) => {
   );
 };
 
-interface FormikStepProps
-  extends Pick<FormikConfig<FormikValues>, "children" | "validationSchema"> {}
-
 const FormikStep = ({ children }: FormikConfig<FormikValues>) => {
   return <>{children}</>;
 };
@@ -133,6 +144,7 @@ const Register = () => {
                 phone: "",
                 date: "",
               }}
+              onSubmit={(values) => alert(JSON.stringify(values))}
             >
               <FormikStep
                 validationSchema={Yup.object().shape({
@@ -140,8 +152,8 @@ const Register = () => {
                   email: Yup.string().email("Should be email").required(),
                 })}
               >
-                <Input label="Name" name="name" type="text" />
-                <Input label="Email" name="email" type="email" />
+                <Field label="Name" name="name" as={Input} />
+                <Field label="Email" name="email" type="email" as={Input} />
               </FormikStep>
 
               <FormikStep
@@ -150,8 +162,8 @@ const Register = () => {
                   date: Yup.string().required(),
                 })}
               >
-                <Input label="Phone" name="phone" type="text" />
-                <Input label="Date of birth" name="date" type="text" />
+                <Field label="Phone" name="phone" as={Input} />
+                <Field label="Date of birth" name="date" as={Input} />
               </FormikStep>
             </FormikStepper>
           </div>
